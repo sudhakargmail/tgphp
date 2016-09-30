@@ -4,7 +4,7 @@ $hubVerifyToken = 'mymessengertoken';
 $accessToken = "EAAZAmqcuBqGoBAK13SY5H4KU7DnceRuBeOB8ymQqv5pufsqkTRl4gyXu2VVb7HfqbuWpA0lXtUio5sZARHS5RRX8d2Yf6G6UZBckHZBrZAiWZC7ZCzUnyrsRoJ6PzFnxIAwZCtku2fA9Y9aIZBDZBRM6ZA251lAuTvss9aLFsVL1hZCSdQZDZD";
 
 // check token at setup
-if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
+if ($_REQUEST['hub_verify_token'] == $hubVerifyToken) {
   echo $_REQUEST['hub_challenge'];
   exit;
 }

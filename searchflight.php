@@ -9,27 +9,31 @@ if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
   exit;
 }
 
-// handle bot's anwser
-$input = json_decode(file_get_contents('php://input'), true);
 
-$senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
-$messageText = $input['entry'][0]['messaging'][0]['message']['text'];
+String response = '{"messagingProvider": "FACEBOOK",
+ "chatKey": "3648b2a2-1aee-4d5a-7ef4-13a0aa441cb1",
+ "attributes": {"redeye": true,
+                "twoWay": true},
+ "departDateMax": "2016-05-31T00:00:00",
+ "departDateMin": "2016-05-31T00:00:00",
+ "returnDateMax": "2016-06-03T00:00:00",
+ "returnDateMin": "2016-06-03T00:00:00",
+ "origin": {"airports": ["LHR", "LGW", "LCY", "STN"],
+            "allAirportsCode": "LON",
+            "geoid": 2643743,
+            "latitude": 51.50853,
+            "longitude": -0.12574,
+            "name": "London, United Kingdom",
+            "type": "City"},
+ "destination": {"airports": ["SVO", "DME", "VKO", "BKA"],
+                 "allAirportsCode": "MOW",
+                 "geoid": 524901,
+                 "latitude": 55.75222,
+                 "longitude": 37.61556,
+                 "name": "Moscow, Russia",
+                 "type": "City"},
+ "travelers": {"adult": 3}}';
 
 
-$answer = "I don't understand. Ask me 'hi'.";
-if($messageText == "hi") {
-    $answer = "Here are three search results:";
-}
 
-$response = [
-    'recipient' => [ 'id' => $senderId ],
-    'message' => [ 'text' => $answer ]
-];
-$ch = curl_init('https://graph.facebook.com/v2.6/me/messages?access_token='.$accessToken);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));
-curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-curl_exec($ch);
-curl_close($ch);
-
-//based on http://stackoverflow.com/questions/36803518
+echo response;
